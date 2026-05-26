@@ -10,33 +10,38 @@ namespace SistemaBecasWeb.Controllers
     {
         private readonly IEvaluacionBecaService _evaluacionService;
 
-        // Inyectamos nuestro servicio (el motor matemático)
         public BecasApiController(IEvaluacionBecaService evaluacionService)
         {
             _evaluacionService = evaluacionService;
         }
 
         [HttpPost("evaluar")]
-        public IActionResult Evaluar([FromBody] EvaluacionRequestDto datos)
+        public IActionResult Evaluar([FromBody] EvaluacionRequest request)
         {
-            // Armamos una solicitud temporal solo con los datos necesarios para el cálculo
+            // Armamos un objeto temporal forzando el tipo (int) en el ingreso por si tu modelo lo requiere
             var solicitudTemporal = new SolicitudBeca
             {
-                PromedioNotas = datos.PromedioNotas,
-                IngresoFamiliar = datos.IngresoFamiliar,
-                IntegrantesFamilia = datos.IntegrantesFamilia,
-                SituacionLaboral = datos.SituacionLaboral
+                PromedioNotas = (decimal)request.PromedioNotas,
+                IngresoFamiliar = (int)request.IngresoFamiliar, 
+                IntegrantesFamilia = request.IntegrantesFamilia,
+                SituacionLaboral = request.SituacionLaboral
             };
 
-            // Pasamos la solicitud por nuestro motor de evaluación
             var resultado = _evaluacionService.EvaluarSolicitud(solicitudTemporal);
 
-            // Devolvemos la respuesta exacta que pide el documento
             return Ok(new
             {
                 puntaje = resultado.Puntaje,
                 resultado = resultado.Resultado
             });
         }
+    }
+
+    public class EvaluacionRequest
+    {
+        public decimal PromedioNotas { get; set; }
+        public decimal IngresoFamiliar { get; set; }
+        public int IntegrantesFamilia { get; set; }
+        public string SituacionLaboral { get; set; }
     }
 }

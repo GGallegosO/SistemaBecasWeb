@@ -1,0 +1,95 @@
+@model IEnumerable<SistemaBecasWeb.Models.SolicitudBeca>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NombreEstudiante)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Rut)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Carrera)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PromedioNotas)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IngresoFamiliar)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IntegrantesFamilia)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SituacionLaboral)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Puntaje)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Resultado)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EstadoSolicitud)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaSolicitud)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(model => item.NombreEstudiante)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.Rut)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.Carrera)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.PromedioNotas)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.IngresoFamiliar)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.IntegrantesFamilia)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.SituacionLaboral)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.Puntaje)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.Resultado)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.EstadoSolicitud)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.FechaSolicitud)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.IdSolicitud">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.IdSolicitud">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.IdSolicitud">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using SistemaBecasWeb.Data;
+using SistemaBecasWeb.Services;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,8 +8,16 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+// Fuerza a que el sistema siempre entienda el punto como decimal
+var cultureInfo = new System.Globalization.CultureInfo("en-US");
+System.Globalization.CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
+System.Globalization.CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
+
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+// Registrar la capa de servicios para la inyección de dependencias
+builder.Services.AddScoped<IEvaluacionBecaService, EvaluacionBecaService>();
 
 var app = builder.Build();
 
