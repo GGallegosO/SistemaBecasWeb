@@ -4,7 +4,9 @@ using Microsoft.EntityFrameworkCore;
 using SistemaBecasWeb.Models;
 using SistemaBecasWeb.Data;
 using SistemaBecasWeb.Services;
+using Microsoft.AspNetCore.Authorization;
 
+[Authorize]
 public class SolicitudBecasController : Controller
 {
     private readonly AppDbContext _context;
