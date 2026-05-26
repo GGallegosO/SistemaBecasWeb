@@ -4,13 +4,15 @@
     ViewData["Title"] = "Listado de Solicitudes";
 }
 
-<h1>Listado de Solicitudes</h1>
+<div class="d-flex justify-content-between align-items-center mb-4 mt-3">
+    <h1>Listado de Solicitudes</h1>
+    <a asp-action="Create" class="btn btn-success fw-bold">
+        Nueva Solicitud
+    </a>
+</div>
 
-<p>
-    <a asp-action="Create">Nueva Solicitud</a>
-</p>
-<table class="table">
-    <thead>
+<table class="table table-striped table-hover table-bordered shadow-sm rounded mt-3" id="tablaBecas">
+    <thead class="table-dark">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.NombreEstudiante)
@@ -93,3 +95,19 @@
 }
     </tbody>
 </table>
+
+@section Scripts {
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+    <script>
+        $(document).ready(function () {
+        $('#tablaBecas').DataTable({
+        "language": {
+        "url": "//cdn.datatables.net/plug-ins/1.13.4/i18n/es-ES.json"
+        },
+        "responsive": true,
+        "order": [[ 8, "desc" ]] // Ordena por la columna Fecha por defecto
+        });
+        });
+    </script>
+}
