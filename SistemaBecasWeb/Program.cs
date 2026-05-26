@@ -5,6 +5,13 @@ using SistemaBecasWeb.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddAuthentication("CookieAuth")
+    .AddCookie("CookieAuth", config => {
+        config.Cookie.Name = "BecaCookie";
+        config.LoginPath = "/Login/Index";
+    });
+
+
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
@@ -32,13 +39,14 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapStaticAssets();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}")
+    pattern: "{controller=SolicitudBecas}/{action=Index}/{id?}")
     .WithStaticAssets();
 
 
